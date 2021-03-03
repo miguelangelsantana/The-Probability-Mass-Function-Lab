@@ -47,7 +47,7 @@ Let's follow the management approach first and see what expected value we get fr
 
 
 ```python
-size_and_count = {17: 10, 22: 10, 27: 18, 32: 6, 37: 8, 42: 10, 47: 5, 52: 3, 57: 4}
+size_and_count = { 17: 10, 22: 10, 27: 18, 32: 6, 37: 8, 42: 10, 47: 5, 52: 3, 57: 4 }
 ```
 
 Following the approach seen in the previous lesson, calculate the PMF by normalizing each size. 
@@ -55,22 +55,17 @@ Following the approach seen in the previous lesson, calculate the PMF by normali
 
 ```python
 # Determine total number of classes
-sum_class = sum(size_and_count.values())
+sum_class = None
 
 # Divide each class size value by the total number of classes
-pmf = [round(value/sum_class, 3) for value in size_and_count.values()]    
+pmf = None   
     
-sizes = list(size_and_count.keys())
+sizes = None
 sizes, pmf
+
+# ([17, 22, 27, 32, 37, 42, 47, 52, 57],
+# [0.135, 0.135, 0.243, 0.081, 0.108, 0.135, 0.068, 0.041, 0.054])
 ```
-
-
-
-
-    ([17, 22, 27, 32, 37, 42, 47, 52, 57],
-     [0.135, 0.135, 0.243, 0.081, 0.108, 0.135, 0.068, 0.041, 0.054])
-
-
 
 As an additional check, these probability values must sum to 1. Let's check for that. Run the following cell: 
 
@@ -80,13 +75,6 @@ As an additional check, these probability values must sum to 1. Let's check for 
 import numpy as np 
 np.array(pmf).sum()
 ```
-
-
-
-
-    1.0
-
-
 
 ## Calculate the Mean or Expected Value $E(X)$
 
@@ -100,16 +88,12 @@ In simple terms, you have to multiply each element in the sizes list by their pr
 
 
 ```python
-mu = np.multiply(sizes, pmf).sum()
-mu
+# Calculate the expected value (mu) using formula above
+mu = None
+mu 
+
+# 32.49
 ```
-
-
-
-
-    32.49
-
-
 
 Recall, we expected the average class size to be 32.5. Indeed, the calculation above confirms this. We can plot a PMF function based on our findings for visualization. 
 
@@ -121,13 +105,8 @@ plt.style.use('ggplot')
 plt.figure(figsize=(8,5))
 
 # Plot the pmf 
-plt.bar(size_and_count.keys(), pmf);
-plt.title("The Probability Mass Function");
+
 ```
-
-
-![png](index_files/index_9_0.png)
-
 
 ## Random Student Survey
 
@@ -144,19 +123,14 @@ The result is a new PMF that represents the biased distribution.
 
 
 ```python
-biased = np.multiply(sizes, pmf)
+biased = None
 
-biased_sum = biased.sum()
+biased_sum = None
 
 biased, biased_sum
+
+# (array([2.295, 2.97 , 6.561, 2.592, 3.996, 5.67 , 3.196, 2.132, 3.078]), 32.49)
 ```
-
-
-
-
-    (array([2.295, 2.97 , 6.561, 2.592, 3.996, 5.67 , 3.196, 2.132, 3.078]), 32.49)
-
-
 
 You can now normalize the new biased list with the sum of its values, just like you did before. 
 - Normalize the biased list and calculate the new PMF
@@ -164,34 +138,23 @@ You can now normalize the new biased list with the sum of its values, just like 
 
 ```python
 pmf2 = []
-for b in biased:
-    pmf2.append(round(b/biased_sum, 3))
-    
+
+
 sizes, pmf2
+
+# ([17, 22, 27, 32, 37, 42, 47, 52, 57],
+# [0.071, 0.091, 0.202, 0.08, 0.123, 0.175, 0.098, 0.066, 0.095])
 ```
-
-
-
-
-    ([17, 22, 27, 32, 37, 42, 47, 52, 57],
-     [0.071, 0.091, 0.202, 0.08, 0.123, 0.175, 0.098, 0.066, 0.095])
-
-
 
 You can see that probability values in this PMF are different than our original pmf. Just like before, you can calculate the expected value $\mu$.  
 
 
 ```python
-mu_biased = np.multiply(sizes, pmf2).sum()
+mu_biased = None
 mu_biased
+
+# 36.577
 ```
-
-
-
-
-    36.577
-
-
 
 ## Here comes the paradox 
 
@@ -205,21 +168,8 @@ Here we see it, the average or expected value of biased results comes out much h
 # Plot pmfs side by side
 new_figure = plt.figure(figsize=(14, 5.5))
 
-ax = new_figure.add_subplot(121)
-ax2 = new_figure.add_subplot(122)
 
-ax.bar(size_and_count.keys(), pmf);
-ax2.bar(size_and_count.keys(), pmf2, color="yellow");
-
-ax.set_title ("Probability Mass Function - Actual");
-ax2.set_title ("Probability Mass Function - Observed");
-
-plt.show()
 ```
-
-
-![png](index_files/index_17_0.png)
-
 
 Your results tell you that in the biased distribution there are fewer small classes and more large classes. 
 
@@ -231,16 +181,8 @@ For an even more direct comparison, plot these PMFs on top of each other and cha
 ```python
 # Plot pmfs overlapping
 plt.figure(figsize=(8, 5))
-plt.bar(size_and_count.keys(), pmf, label= 'Actual', alpha = 0.7 );
-plt.bar(size_and_count.keys(), pmf2, color= "yellow", alpha = 0.7, label= 'Observed');
-plt.title ("Probability Mass Function - Class size paradox");
-plt.legend()
-plt.show()
+
 ```
-
-
-![png](index_files/index_19_0.png)
-
 
 Here is the key: for smaller class sizes, the probability of coming across a students is lower than the actual probability. For larger classes, the probability of coming across a student is much higher than actual probability. This explains why the paradox takes place!
 
